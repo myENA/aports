@@ -2,7 +2,7 @@
 # Maintainer: Nathan Johnson <nathan@nathanjohnson.info>
 pkgname=php5-amqp
 _pkgreal=amqp
-pkgver=1.7.0
+pkgver=1.7.1
 pkgrel=0
 pkgdesc="PHP extension couchbase"
 url="http://pecl.php.net/package/$_pkgreal"
@@ -38,9 +38,9 @@ package() {
 	echo "extension=$_pkgreal.so" > "$pkgdir"/etc/php5/conf.d/$_pkgreal.ini
 }
 
-md5sums="5a701987a5c9d1f1b70b359e14d5162e  amqp-1.7.0.tgz
+md5sums="901befb3ba9c906e88ae810f83599baf  amqp-1.7.1.tgz
 e4e9757fb1ae53b9d627bf52b2a8f157  package_version.patch"
-sha256sums="b9a642c0ae60cc5e049c169a017cc355bfc0f2478db588b20925eaa63d358e83  amqp-1.7.0.tgz
+sha256sums="38a92eaef1aa863404170bcd15605f7f78140eeec1ff5be6af65c5b8081e2599  amqp-1.7.1.tgz
 717f407b667e11aaa7528555e311dbf468518480a33d57319e8a94d8a7bf865d  package_version.patch"
-sha512sums="7fb16c1f49814e8eb74635672e80023bbe8655536efb28f9899c55ef328574dd806d51b7a39f972777cc643105acc6918b10009af09e4106b395b246c3463116  amqp-1.7.0.tgz
+sha512sums="3cd712410e6614c764b307670ad2398d374bf438c20d28aaa96dc61cabc63530883f87cb1669d0370691b7ca901604a1d93fe81c4ca7dada776f923a368c3b19  amqp-1.7.1.tgz
 dcc1fc97528c8b8a04c13d6e9249f1afc0c77bb4bb8ae504c4579a76665e71727b99e547a4fbd1601a72ac5f503854f7dddf1f7e267c90ab32f5d81f52b092d6  package_version.patch"
