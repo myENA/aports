@@ -1,0 +1,22 @@
+--- a/etc/ocspd.xml.in
++++ b/etc/ocspd.xml.in
+@@ -5,16 +5,16 @@
+    <pki:general>
+       <!-- Directory where configurations about libPKI token (e.g., token.d/,
+            hsm.d/, etc... ) are located -->
+-      <pki:pkiConfigDir>@prefix@/etc/ocspd/pki</pki:pkiConfigDir>
++      <pki:pkiConfigDir>@sysconfdir@/ocspd/pki</pki:pkiConfigDir>
+       <!-- Name of the token configuration to be used for the server, check
+            the libPKI documentations for more details -->
+       <pki:token>ocspServerToken</pki:token>
+       <!-- Directory containing all the configuration files for the supported
+            CAs -->
+-      <pki:caConfigDir>@prefix@/etc/ocspd/ca.d</pki:caConfigDir>
++      <pki:caConfigDir>@sysconfdir@/ocspd/ca.d</pki:caConfigDir>
+       <!-- File where the server will write its own Process id (PID) into
+            upon startup -->
+-      <pki:pidFile>@prefix@/var/run/ocspd.pid</pki:pidFile>
++      <pki:pidFile>@localstatedir@/run/ocspd/ocspd.pid</pki:pidFile>
+       <!-- Number of threads to be pre-spawned -->
+       <pki:spawnThreads>10</pki:spawnThreads>
+       <!-- Auto Reload Timeout (secs) -->

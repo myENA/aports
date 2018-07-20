@@ -1,0 +1,13 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -1027,8 +1027,8 @@
+ 
+ install-data-local:
+ 	@$(NORMAL_INSTALL)
+-	@$(mkinstalldirs) $(DESTDIR)$(exec_prefix)/var
+-	@$(mkinstalldirs) $(DESTDIR)$(exec_prefix)/var/run
++	@$(mkinstalldirs) $(DESTDIR)$(localstatedir)
++	@$(mkinstalldirs) $(DESTDIR)$(localstatedir)/run
+ 
+ distclean-local:
+ 	@rm -rf autom4te.cache

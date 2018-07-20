@@ -1,0 +1,15 @@
+#!/sbin/openrc-run
+
+pidfile=/run/ocspd/ocspd.pid
+name=openca-ocspd
+command=/usr/sbin/ocspd
+command_args="-c /etc/ocspd/ocspd.xml -d"
+
+depend() {
+	need net localmount
+	after firewall
+}
+
+start_pre() {
+	checkpath -m 700 -o ocspd:ocspd -d "$(dirname "$pidfile")"
+}

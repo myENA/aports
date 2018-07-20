@@ -1,0 +1,27 @@
+--- a/src/ocspd/request.c
++++ b/src/ocspd/request.c
+@@ -53,6 +53,7 @@
+ 	if( http_msg->method == PKI_HTTP_METHOD_GET )
+ 	{
+ 		char *req_pnt = NULL;
++		size_t req_len = 0;
+ 
+ 		if (http_msg->path == NULL)
+ 		{
+@@ -65,8 +66,15 @@
+ 		{
+ 			req_pnt = strchr(req_pnt, '/') + 1;
+ 		}
++        
++		req_len = strlen(req_pnt);
+ 
+-		pathmem = PKI_MEM_new_data(strlen(req_pnt), (unsigned char *) req_pnt);
++		if (req_len == 0)
++		{
++			goto err;
++		}
++        
++		pathmem = PKI_MEM_new_data(req_len, (unsigned char *) req_pnt);
+ 		if (pathmem == NULL)
+ 		{
+ 			PKI_log_err("Memory Allocation Error!");

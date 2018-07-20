@@ -1,0 +1,57 @@
+# Contributor: Nathan Johnson <nathan@nathanjohnson.org>
+# Maintainer: Nathan Johnson <nathan@nathanjohnson.org>
+pkgname=openca-ocspd
+pkgver=3.1.1
+pkgrel=0
+pkgdesc="The OpenCA's Online Certificate Status Protocol Daemon"
+url="https://www.openca.org/projects/ocspd/"
+arch="all"
+license="OpenCA License (Apache-like)"
+depends=""
+makedepends="libpki-dev libxml2-dev libressl-dev"
+install="$pkgname.pre-install"
+pkgusers="ocspd"
+pkggroups="ocspd"
+subpackages="$pkgname-dev $pkgname-doc"
+_shortname="ocspd"
+source="
+	${pkgname}-${pkgver}.tar.gz::https://github.com/openca/openca-ocspd/archive/v${pkgver}.tar.gz
+	${pkgname}.initd
+	fix_localstatedir.patch
+	fix_sysconfdir.patch
+	fix_config.patch
+	fix_bad_error.patch
+"
+builddir="$srcdir/${pkgname}-${pkgver}"
+
+build() {
+	cd "$builddir"
+	./configure --prefix=/usr \
+				--sysconfdir=/etc \
+				--with-libdir=/usr/lib \
+				--localstatedir=/var \
+				--with-ocspd-user=$pkgusers \
+				--with-ocspd-group=$pkggroups
+	make
+	make check
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install
+	rm "$pkgdir"/etc/init.d/*
+	install -p -m755 "$srcdir"/$pkgname.initd "$pkgdir"/etc/init.d/$_shortname
+	install -d ${pkgdir}/usr/share/licenses/${pkgname}
+	install -d ${pkgdir}/usr/share/doc/${pkgname}
+	install -p -m644 -D "$builddir"/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/
+	for f in README INSTALL NEWS AUTHORS ChangeLog COPYING; do
+		install -p -m644 -D "$builddir"/${f} ${pkgdir}/usr/share/doc/${pkgname}/${f}
+	done
+}
+
+sha512sums="74f1b98c5b74706cecdec800175c2739d09945c4e6b1c7f8f1c9bc23aab43f2c53ca55f00ae1844778b68f3f23d3bd5c913b7cf302132c86e3cb35fb54dbd11a  openca-ocspd-3.1.1.tar.gz
+f84b112c8da55cfc3864763382b5b902c4df2b058e45f33856c72aa46721e5e1805303173e4eb94af44ab65c8e7b7813b26349f91b2e87f2886d211f561d3a68  openca-ocspd.initd
+471219bd02746f2667cddc32762d4412b7f28c375882ecefef4afb75cfdab20fa325e101771fb72649c93ba3951dc0ac4ecd3af60b38a98f27957e1457224cee  fix_localstatedir.patch
+8e4d496f6a37823c47364dfb90b956e5a368f406c85ab72cefcaaebb524fcbb2069dfe2d5cb2a8fcad08397ff2afb50daed204a9bd8667f57a0ad2d00b52794c  fix_sysconfdir.patch
+1a3424774b2bf030abc3fe0265921e0de2e7195f59c08a477db51876191c58ea31ea8739bb2b6a9e10e766cf9f92d5ff87c964e4d9a9fb920c7b2f358b66f21e  fix_config.patch
+002bb5d1144d136f529e18c998fc192dcd0f6cd7172832054ff3b3f720992768ee9a3340fb2e2b802d09fea2a39f57f7b0e2d3b2539b1b02825f38ed8f850772  fix_bad_error.patch"

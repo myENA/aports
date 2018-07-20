@@ -1,0 +1,6 @@
+#!/bin/sh
+
+addgroup -S ocspd 2>/dev/null
+adduser -S -D -H -s /sbin/nologin -h /etc/ocspd -G ocspd \
+		-g 'OpenCA OCSP Server' ocspd 2>/dev/null
+exit 0

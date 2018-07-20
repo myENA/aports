@@ -1,0 +1,14 @@
+--- a/etc/Makefile.in
++++ b/etc/Makefile.in
+@@ -268,9 +268,9 @@
+ top_srcdir = @top_srcdir@
+ user = @user@
+ TOP = ..
+-etc_prefix = $(DESTDIR)${exec_prefix}/etc
++etc_prefix = $(DESTDIR)${sysconfdir}
+ lib_prefix = $(DESTDIR)@libdir@
+-var_prefix = $(DESTDIR)${exec_prefix}/var
++var_prefix = $(DESTDIR)${localstatedir}
+ doc_prefix = $(DESTDIR)${datadir}/openca-prqpd
+ EXTRA_DIST = ocspd.xml.in ocspd.in ca.d/*.xml
+ all: all-am
